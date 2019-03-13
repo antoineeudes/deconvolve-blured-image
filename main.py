@@ -6,8 +6,6 @@ from scipy import *
 from pylab import *
 import numpy as np
 import matplotlib.pyplot as plt
-
-
 import scipy.ndimage as ndimage
 
 
@@ -24,7 +22,7 @@ colorbar()
 
 
 L = 15
-mu = 0.008
+mu = 0.005 # without this term, the noises will be emphasized by the fourier transformation
 height, width = I.shape
 h = np.zeros((height, width))
 
@@ -38,7 +36,7 @@ h_hat = fft2(h)
 
 square_h_hat = h_hat*h_hat
 
-f_hat = g_hat*np.conjugate(h_hat)/(np.absolute(square_h_hat)+mu)
+f_hat = g_hat*np.conjugate(h_hat)/(abs(square_h_hat)+mu)
 
 figure()
 imshow(np.real(ifft2(f_hat)), cmap="Greys_r")
